@@ -86,9 +86,16 @@ class M:
 
     def num_operations(self):
         print('numpy operations :  \n')
-        
-        arr = np.random.randint(5, 20, 20).reshape(5, 4)
-        print(arr)
+
+        arr = np.arange(0, 10)
+        print(
+            f' array + it self : {arr + arr}\n' +
+            f'array * 3 : {arr * 3}\n' +
+            # etc for regular
+            f'sqrt or array : {np.sqrt(arr)}\n' +
+            # log 0 is  -inf and must be undefined
+            f'numpy will give warning instead of error like : {np.log(arr)}'
+        )
 
 
 if __name__ == "__main__":

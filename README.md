@@ -16,3 +16,8 @@ arr = np.arange(25)
 print(
     f'reshape : this: {arr} to : \nthis :  {arr.reshape(5,5)} '
 )
+
+Universal functions 
+https://numpy.org/doc/stable/reference/ufuncs.html
+
+
