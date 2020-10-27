@@ -2,9 +2,6 @@ import numpy as np
 
 
 class M:
-    def __init__(self):
-        self.arr = np.arange(0, 10)
-
     def my_one(self):
         my_list = [
             [1, 2, 3], [4, 5, 6], [7, 8, 9]
@@ -41,14 +38,59 @@ class M:
         print(arr.shape)  # return the shape of the arr
         # arr.dtype  for data type in array
 
-    def my_two(self):
-        print(self.arr)
+    def slicing(self):
 
-        d = np.arange(10, 20)
-        print(d)
-    
+        #  indexing element from array
+        arr = np.arange(0, 10)
+        print(arr)
+
+        print(arr[1:4])
+        print(arr[3:])
+
+        #! can broadcast tot the array, data will overwright it
+        arr[:4] = 100
+        print(arr, '\n')
+
+        # matrix index
+        arr_2d = np.array([
+            np.random.randint(0, 50, 4),
+            np.random.randint(0, 50, 4),
+            np.random.randint(0, 50, 4)
+        ])
+        print(arr_2d)
+        print(
+            f'{arr_2d[0,2] } same is {arr_2d[0][2]}'
+        )
+        print(
+            f' get top left corner of matrix: \n {arr_2d[:2, 1:]} \n'
+        )
+
+        #! conditional selection
+        arr = np.random.randint(10, 50, 11)
+        print(arr)
+        print(
+            f'conditional search:  {arr > 30}'
+        )
+        print(arr[arr > 30])  # put condition straight to array
+        print(arr[arr < 30])
+
+        arr_2d = np.random.randint(10, 30, 50).reshape(5, 10)
+        print(
+            f'\nbig 2d array : \n {arr_2d}'
+        )
+
+        chank = arr_2d[1:3, 3:5]  # first get rows and then cut column
+        print(
+            f'\ngrab chanck of it :\n {chank}'
+        )
+
+    def num_operations(self):
+        print('numpy operations :  \n')
+        
+        arr = np.random.randint(5, 20, 20).reshape(5, 4)
+        print(arr)
 
 
 if __name__ == "__main__":
     nn = M()
-    print(nn.my_two())
+    nn.num_operations()
