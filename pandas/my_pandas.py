@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from numpy.random import randn, randint
+from numpy.random import randn
 
 
 def series():
@@ -33,8 +33,14 @@ def series():
     )
 
 
-# working with data frames this is the main of pandas
 def data_frames():
+    # working with data frames this is the main of pandas
+    # pd.DataFrame()
+    # df.drop(axis=1, inplace=True)
+    # df.loc , df.iloc
+    # df.reset_index
+    # df.set_index
+
     np.random.seed(101)
     print("---------- selection from df\n")
     df = pd.DataFrame(
@@ -135,6 +141,64 @@ def data_frames():
     )
 
 
+def missing_data():
+    # dropna
+    # fillna
+
+    print('================= working with nan value ')
+    d = {
+        'a': [1, 2, np.nan],
+        'b': [5, np.nan, np.nan],
+        'c': [1, 2, 3]
+    }
+
+    df = pd.DataFrame(d)
+    print(df)
+    # can drop the data with the nan value by df.dropna(axis= 0/1)
+    # need to chose the axis rows = 0 , columns = 1
+    print(df.dropna(axis=0))
+    # argument df.dropna(trash=2)  -> trash is define the number of
+    # nan value at data ( at least 2 for drop condition )
+
+    # df.fillna() , for do must select inplace
+    print(
+        f"fill data to na \n {df.fillna('value!')}\n"
+    )
+
+    df['a'].fillna(value=df['a'].mean(), inplace=True)
+    print(
+        "also good to fill the value from the data it self : \n" +
+        f" {df}\n"
+    )
+
+
+def groupby_df():
+    # agregation func
+    # groupby()
+    # describe()
+    # transpose()
+
+    data = {
+        'company': 'goog goog mfst mfst fb fb'.split(),
+        'person': 'sam charly amy canessa carl sarrah'.split(),
+        'sales': [200, 120, 340, 124, 350, 124]
+    }
+    df = pd.DataFrame(data)
+    print(df)
+
+    print(
+        # groupby return the agregate object so you need to use it for calculation
+        "group by company and get mean for sales: \n " +
+        f" { df.groupby('company').mean()  } \n "
+    )
+
+    print(
+        f"great method describe : \n {df.groupby('company').describe()} \n"
+    )
+
+
 if __name__ == "__main__":
     # series()
-    data_frames()
+    # data_frames()
+    # missing_data()
+    groupby_df()
