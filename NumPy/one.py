@@ -22,7 +22,7 @@ class M:
 
         # -0+
         print(f'\n random matrix or array: \n{np.random.randn(5)}')
-        print(f'\n random matrix or array: \n{np.random.randint(1,100, 4)}\n')
+        print(f'\n random array: \n{np.random.randint(1,100, 4)}\n')
 
         # max min
         ranarr = np.random.randint(0, 50, 10)
