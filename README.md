@@ -8,14 +8,10 @@ Udemy cource : Python for Data Science and Machine Learning Bootcamp Learn how t
 
 # NumPy
 pip install numpy
+pip install pandas
 
-ranarr = np.random.randint(0, 50, 10)
-ranarr.max()
+jupyter notebook --notebook-dir=D:\
 
-arr = np.arange(25)
-print(
-    f'reshape : this: {arr} to : \nthis :  {arr.reshape(5,5)} '
-)
 
 Universal functions 
 https://numpy.org/doc/stable/reference/ufuncs.html

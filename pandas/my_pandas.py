@@ -172,7 +172,7 @@ def missing_data():
     )
 
 
-def groupby_df():
+def group_by_df():
     # agregation func
     # groupby()
     # describe()
@@ -197,8 +197,69 @@ def groupby_df():
     )
 
 
+def merge_join_df():
+    # pd.concat([df1, df2])
+    # pd.merge(left, right, how='inner', on='key')
+    # left.join(right, how='outer')
+
+    df1 = pd.DataFrame(
+        {
+            'A': ['A0', 'A1', 'A2', 'A3'],
+            'B': ['B0', 'B1', 'B2', 'B3'],
+            'C': ['C0', 'C1', 'C2', 'C3'],
+            'D': ['D0', 'D1', 'D2', 'D3']
+        },
+        index=[0, 1, 2, 3]
+    )
+    df2 = pd.DataFrame(
+        {'A': ['A4', 'A5', 'A6', 'A7'],
+         'B': ['B4', 'B5', 'B6', 'B7'],
+         'C': ['C4', 'C5', 'C6', 'C7'],
+         'D': ['D4', 'D5', 'D6', 'D7']
+         },
+        index=[4, 5, 6, 7]
+    )
+
+    print(pd.concat([df1, df2]))
+
+    # will concat all values via looking for the columns
+    print(
+        f"concat vs axis 1 : \n {pd.concat([df1, df2], axis=1)} \n "
+    )
+
+    left = pd.DataFrame({'key': ['K0', 'K1', 'K2', 'K3'],
+                         'A': ['A0', 'A1', 'A2', 'A3'],
+                         'B': ['B0', 'B1', 'B2', 'B3']})
+
+    right = pd.DataFrame({'key': ['K0', 'K1', 'K2', 'K3'],
+                          'C': ['C0', 'C1', 'C2', 'C3'],
+                          'D': ['D0', 'D1', 'D2', 'D3']})
+
+    print(
+        # can put multiple keys if exist on=['key1', 'key2']
+        "merge left and right data on key is same as (join using key) " +
+        f" \n {pd.merge(left, right, how='inner', on='key')} \n "
+    )
+
+    left = pd.DataFrame({'A': ['A0', 'A1', 'A2'],
+                         'B': ['B0', 'B1', 'B2']},
+                        index=['K0', 'K1', 'K2'])
+
+    right = pd.DataFrame({'C': ['C0', 'C2', 'C3'],
+                          'D': ['D0', 'D2', 'D3']},
+                         index=['K0', 'K2', 'K3'])
+
+    print(
+        # k3 data loss ( didn't exist at left table )
+        f"join two different tables : \n {left.join(right)} \n" +
+        f" or you can specify the how='outher' (for saving all data mussing=nan): \n{ left.join(right, how='outer')}\n "
+
+    )
+
+
 if __name__ == "__main__":
     # series()
     # data_frames()
     # missing_data()
-    groupby_df()
+    # group_by_df()
+    merge_join_df()
