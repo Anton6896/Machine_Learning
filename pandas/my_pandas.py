@@ -317,13 +317,22 @@ def file_open(file_name):
 
 
 def data_io():
+    # pd.read_excel('Excel_Sample.xlsx',sheetname='Sheet1')
+    # df.to_excel('Excel_Sample.xlsx',sheet_name='Sheet1')
+    # df = pd.read_csv(example)
+
+
     example = '/mnt/d/Documents/Code/Mashine_Learning/course_data/03-Python-for-Data-Analysis-Pandas/example'
     Excel_Sample = '/mnt/d/Documents/Code/Mashine_Learning/course_data/03-Python-for-Data-Analysis-Pandas/Excel_Sample.xlsx'
     multi_index_example = '/mnt/d/Documents/Code/Mashine_Learning/course_data/03-Python-for-Data-Analysis-Pandas/multi_index_example'
 
-    file = file_open(multi_index_example)
-    for i in file:
-        print(i)
+    file = file_open(example)
+    df = pd.read_csv(example)
+    print(df)
+
+
+
+
 
 
 if __name__ == "__main__":

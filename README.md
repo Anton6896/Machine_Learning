@@ -9,6 +9,10 @@ Udemy cource : Python for Data Science and Machine Learning Bootcamp Learn how t
 # NumPy
 pip install numpy
 pip install pandas
+pip install lxml
+pip install html5lib
+pip install BeautifulSoup4
+pip install sqlalchemy
 
 jupyter notebook --notebook-dir=D:\
 
