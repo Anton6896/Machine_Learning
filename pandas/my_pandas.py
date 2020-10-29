@@ -15,11 +15,12 @@ def series():
     d = {
         'a': 10, 'b': 20, 'c': 30
     }
-    print(f'pandas basic series : \n{pd.Series(my_data)}\n')
+    print(f'pandas basic series : \n{pd.Series(my_data)}')
+    print(type(my_data))
     print(
         # you dont need to specify the data and index
         # pd.Series(my_data, labels)
-        f'pandas series vs labels : \n{pd.Series(data=my_data, index=labels)}\n')
+        f'\npandas series vs labels : \n{pd.Series(data=my_data, index=labels)}\n')
 
     print(f'pandas series vs dict  : \n{pd.Series(d)}\n')
 
@@ -357,10 +358,10 @@ def data_io():
 
 
 if __name__ == "__main__":
-    # series()
+    series()
     # data_frames()
     # missing_data()
     # group_by_df()
     # merge_join_df()
     # operations()
-    data_io()
+    # data_io()
