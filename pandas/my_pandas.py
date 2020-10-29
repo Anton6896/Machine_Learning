@@ -257,9 +257,80 @@ def merge_join_df():
     )
 
 
+def operations():
+    # df.head()
+    # .unique()
+    # .value_counts()
+    # .apply()
+    # .columns
+    # .sort_values(by='col2')
+    # .isnull()
+    # .pivot_table(values='D', index=['A','B'], columns=['C'])
+
+    df = pd.DataFrame({'col1': [1, 2, 3, 4], 'col2': [
+                      444, 555, 666, 444], 'col3': ['abc', 'def', 'ghi', 'xyz']})
+
+    print(df.head())
+
+    # unicue value
+    print(
+        f"find unique value :  {df['col2'].unique()} \n" +
+        f"how many unique values :  {df['col2'].nunique()} \n" +
+        f"how many values apears :  \n{df['col2'].value_counts()} \n "
+    )
+
+    df['col4'] = df['col1'].apply(lambda x: x*2)
+    print(
+        f"apply func : \n{df}"
+    )
+
+    print(
+        f"{df.columns} \n{df.index}"
+    )
+
+    data = {'A': ['north', 'north', 'north', 'west', 'west', 'west'],
+            'B': ['ncb', 'ncb', 'teva', 'teva', 'ncb', 'ncb'],
+            'C': ['x', 'y', 'x', 'y', 'x', 'y'],
+            'D': [12, 31, 22, 35, 45, 11]}
+
+    df = pd.DataFrame(data)
+    print(df)
+    print(
+        # amaziiiinggg
+        "pivot data frame , combine new df from existing data that have same values" +
+        f"\n {df.pivot_table(values='D', index=['A', 'B'], columns=['C'])} \n"
+    )
+
+
+def file_open(file_name):
+    # return list with lists of file data
+    try:
+        with open(file_name) as f:
+            fdata = f.read().split()
+            l = []
+            for i in fdata:
+                l.append(i.split(','))
+            return l
+
+    except FileNotFoundError:
+        print('no file found')
+
+
+def data_io():
+    example = '/mnt/d/Documents/Code/Mashine_Learning/course_data/03-Python-for-Data-Analysis-Pandas/example'
+    Excel_Sample = '/mnt/d/Documents/Code/Mashine_Learning/course_data/03-Python-for-Data-Analysis-Pandas/Excel_Sample.xlsx'
+    multi_index_example = '/mnt/d/Documents/Code/Mashine_Learning/course_data/03-Python-for-Data-Analysis-Pandas/multi_index_example'
+
+    file = file_open(multi_index_example)
+    for i in file:
+        print(i)
+
+
 if __name__ == "__main__":
     # series()
     # data_frames()
     # missing_data()
     # group_by_df()
-    merge_join_df()
+    # merge_join_df()
+    # operations()
+    data_io()
