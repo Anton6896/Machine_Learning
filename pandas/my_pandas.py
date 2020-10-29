@@ -1,3 +1,4 @@
+from os import write
 import pandas as pd
 import numpy as np
 from numpy.random import randn
@@ -323,17 +324,36 @@ def data_io():
     # pd.read_excel('Excel_Sample.xlsx',sheetname='Sheet1')
     # df.to_excel('Excel_Sample.xlsx',sheet_name='Sheet1')
     # pd.read_csv(example)
+    # df.to_csv(folder + 'file.csv', index=False)
 
-    my_files = str(pathlib.Path(
+    # file directories
+    folder = str(pathlib.Path(
         __file__).parent.parent.absolute()) + '/my_files/'
     example = '/mnt/d/Documents/Code/Mashine_Learning/course_data/03-Python-for-Data-Analysis-Pandas/example'
     Excel_Sample = '/mnt/d/Documents/Code/Mashine_Learning/course_data/03-Python-for-Data-Analysis-Pandas/Excel_Sample.xlsx'
     multi_index_example = '/mnt/d/Documents/Code/Mashine_Learning/course_data/03-Python-for-Data-Analysis-Pandas/multi_index_example'
+    html_link = 'http://www.fdic.gov/bank/individual/failed/banklist.html'
 
     # open csv file add 'e' column and save to another path
-    df = pd.read_csv(example)
-    df['e'] = df['b'].apply(lambda x: x+1)
-    df.to_csv(my_files + 'file.csv', index=False)
+    # df = pd.read_csv(example)
+    # df['e'] = df['b'].apply(lambda x: x+1)
+    # df.to_csv(folder + 'file.csv', index=False)
+
+    # open excel
+    # df = pd.read_excel(Excel_Sample, sheet_name='Sheet1')
+    # print(df)
+    # # wright to exel
+    # with pd.ExcelWriter(folder + 'my_excel.xlsx') as writer:
+    #     df.to_excel(writer, sheet_name='Sheet1')
+
+    # html reading
+    df = pd.read_html(html_link)
+    # using the df[0] place of the table ad the data from html source
+    print(
+        df[0].head()
+    )
+    # with pd.ExcelWriter(folder + 'htmltoexcel.xlsx') as target:
+    #     df[0].to_excel(target, sheet_name='Sheet1')
 
 
 if __name__ == "__main__":

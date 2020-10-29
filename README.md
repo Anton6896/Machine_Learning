@@ -13,6 +13,8 @@ pip install lxml
 pip install html5lib
 pip install BeautifulSoup4
 pip install sqlalchemy
+pip install xlrd
+pip install openpyxl
 
 jupyter notebook --notebook-dir=D:\
 
