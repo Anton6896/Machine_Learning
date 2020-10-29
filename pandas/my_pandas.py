@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 from numpy.random import randn
 
+import pathlib
+
 
 def series():
     # basic of pandas series
@@ -304,6 +306,7 @@ def operations():
 
 def file_open(file_name):
     # return list with lists of file data
+    # for csv files
     try:
         with open(file_name) as f:
             fdata = f.read().split()
@@ -319,20 +322,18 @@ def file_open(file_name):
 def data_io():
     # pd.read_excel('Excel_Sample.xlsx',sheetname='Sheet1')
     # df.to_excel('Excel_Sample.xlsx',sheet_name='Sheet1')
-    # df = pd.read_csv(example)
+    # pd.read_csv(example)
 
-
+    my_files = str(pathlib.Path(
+        __file__).parent.parent.absolute()) + '/my_files/'
     example = '/mnt/d/Documents/Code/Mashine_Learning/course_data/03-Python-for-Data-Analysis-Pandas/example'
     Excel_Sample = '/mnt/d/Documents/Code/Mashine_Learning/course_data/03-Python-for-Data-Analysis-Pandas/Excel_Sample.xlsx'
     multi_index_example = '/mnt/d/Documents/Code/Mashine_Learning/course_data/03-Python-for-Data-Analysis-Pandas/multi_index_example'
 
-    file = file_open(example)
+    # open csv file add 'e' column and save to another path
     df = pd.read_csv(example)
-    print(df)
-
-
-
-
+    df['e'] = df['b'].apply(lambda x: x+1)
+    df.to_csv(my_files + 'file.csv', index=False)
 
 
 if __name__ == "__main__":
