@@ -262,7 +262,7 @@ def merge_join_df():
 
 
 def operations():
-    # df.head()
+    # .head()
     # .unique()
     # .value_counts()
     # .apply()

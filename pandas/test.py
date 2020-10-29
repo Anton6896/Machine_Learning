@@ -8,6 +8,7 @@
 # go along.
 # """
 
+from os import truncate
 import pathlib
 import pandas as pd
 
@@ -73,15 +74,56 @@ def test():
         f"\t{df} "
     )
 
-
-    amount = sal['JobTitle'].unique()
+    amount = len(
+        sal['JobTitle'].unique()
+    )
     print(
         #  she is in debt
         '\nHow many unique job titles are there? \n' +
         f"\t{amount} "
     )
 
-    # print(sal.info())
+    top_jobs = sal['JobTitle'].value_counts()[:5]
+    print(
+        '\nWhat are the top 5 most common jobs? \n' +
+        f"{top_jobs} "
+    )
+
+    amount = len(
+        sal[(sal['Year'] == 2013)][['Year', 'JobTitle']].value_counts()[
+            sal[(sal['Year'] == 2013)][['Year', 'JobTitle']].value_counts() == 1
+        ]
+    )
+    print(
+
+        "\nHow many Job Titles were represented by only one person in 2013?\n" +
+        "(e.g. Job Titles with only one occurence in 2013?) \n" +
+        f"\t{amount} "
+    )
+
+    def name_check(name):
+        # return true if name have Chief in it
+        substring = "Chief"
+        if substring in name:
+            return True
+        return False
+
+    amount = len(sal[list(map(name_check, sal['JobTitle'].values))])
+    print(
+        # ! check this answear
+        "\nHow many people have the word Chief in their job title?\n" +
+        f"\t{amount}"
+    )
+
+    sal['title_len'] = sal['JobTitle'].apply(lambda x: float(len(x)))
+    sal['TotalPayBenefits'] = sal['TotalPayBenefits'].apply(lambda x: float(x))
+    sal.fillna(int(0))
+    corelation = sal[['title_len', 'TotalPayBenefits']]
+    print(
+
+        "\nIs there a correlation between length of the Job Title string and Salary?\n" +
+        f"\t{corelation.corr(method ='pearson')}"
+    )
 
 
 if __name__ == "__main__":
