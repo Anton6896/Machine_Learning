@@ -8,7 +8,7 @@
 # go along.
 # """
 
-from os import truncate
+
 import pathlib
 import pandas as pd
 
@@ -49,19 +49,27 @@ def test():
         f"\t{amount.values[0]} "
     )
 
-    name = sal[sal['TotalPayBenefits'] ==
-               sal['TotalPayBenefits'].max()].transpose()
+    # name = sal[sal['TotalPayBenefits'] ==
+    #            sal['TotalPayBenefits'].max()].transpose()
+    name = sal.loc[sal['TotalPayBenefits'].idxmax()][[
+        'EmployeeName',
+        'TotalPayBenefits'
+    ]]
     print(
         '\nWhat is the name of highest paid person (including benefits)? \n' +
-        f"\t{name} "
+        f"{name} "
     )
 
-    name = sal[sal['TotalPayBenefits'] ==
-               sal['TotalPayBenefits'].min()].transpose()
+    # name = sal[sal['TotalPayBenefits'] ==
+    #            sal['TotalPayBenefits'].min()].transpose()
+    name = sal.iloc[sal['TotalPayBenefits'].argmin()][[
+        'EmployeeName',
+        'TotalPayBenefits'
+    ]]
     print(
         #  she is in debt
         '\nWhat is the name of lowest paid person (including benefits)? \n' +
-        f"\t{name} "
+        f"{name} "
     )
 
     amount = sal[
@@ -74,11 +82,9 @@ def test():
         f"\t{df} "
     )
 
-    amount = len(
-        sal['JobTitle'].unique()
-    )
+    amount = sal['JobTitle'].nunique()
     print(
-        #  she is in debt
+        #  nunique return number of unicue
         '\nHow many unique job titles are there? \n' +
         f"\t{amount} "
     )
@@ -89,10 +95,14 @@ def test():
         f"{top_jobs} "
     )
 
-    amount = len(
-        sal[(sal['Year'] == 2013)][['Year', 'JobTitle']].value_counts()[
-            sal[(sal['Year'] == 2013)][['Year', 'JobTitle']].value_counts() == 1
-        ]
+    # amount = len(
+    #     sal[(sal['Year'] == 2013)][['Year', 'JobTitle']].value_counts()[
+    #         sal[(sal['Year'] == 2013)][['Year', 'JobTitle']].value_counts() == 1
+    #     ]
+    # )
+
+    amount = sum(
+        sal[(sal['Year'] == 2013)]['JobTitle'].value_counts() == 1
     )
     print(
 
@@ -103,26 +113,28 @@ def test():
 
     def name_check(name):
         # return true if name have Chief in it
-        substring = "Chief"
-        if substring in name:
+        substring = "chief"
+        if substring in name.lower().split():
             return True
         return False
 
+
+    #  same but different 
     amount = len(sal[list(map(name_check, sal['JobTitle'].values))])
+    amount2 = sum(sal['JobTitle'].apply(lambda x: name_check(x)))
     print(
-        # ! check this answear
         "\nHow many people have the word Chief in their job title?\n" +
-        f"\t{amount}"
+        f"\t{amount2}"
     )
 
     sal['title_len'] = sal['JobTitle'].apply(lambda x: float(len(x)))
     sal['TotalPayBenefits'] = sal['TotalPayBenefits'].apply(lambda x: float(x))
     sal.fillna(int(0))
-    corelation = sal[['title_len', 'TotalPayBenefits']]
+    corelation = sal[['title_len', 'TotalPayBenefits']].corr(method ='pearson')
     print(
 
         "\nIs there a correlation between length of the Job Title string and Salary?\n" +
-        f"\t{corelation.corr(method ='pearson')}"
+        f"\t{corelation}"
     )
 
 
