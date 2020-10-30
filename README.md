@@ -15,6 +15,7 @@ pip install BeautifulSoup4
 pip install sqlalchemy
 pip install xlrd
 pip install openpyxl
+pip install matplotlib
 
 jupyter notebook --notebook-dir=D:\
 
