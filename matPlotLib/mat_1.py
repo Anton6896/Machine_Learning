@@ -93,11 +93,29 @@ def adv_1():
 
 
 def adv_2():
+    # ax.set_xlim([0, 1])
+    # ax.set_ylim(([0, 5]))
+
     x = np.linspace(0, 5, 11)
     y = x ** 2
 
     # customization of the plot (visual)
-    
+    fig = plt.figure()
+    ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+    # rgb hex colors, alpha = transparency, linewidth = lw (same thing )
+    # linestyle = "--", marker="o"
+    ax.plot(
+        x, y,
+        color='r',
+        linewidth=2,
+        alpha=0.3,
+        linestyle='--',
+        marker='o',
+        markerfacecolor='g'
+    )
+
+    ax.set_xlim([0, 1])
+    ax.set_ylim(([0, 5]))
 
 
 if __name__ == '__main__':
