@@ -5,6 +5,8 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
+import pathlib
+
 
 # if creating the plots in same place
 # they will stick to ech other in picture
@@ -153,7 +155,7 @@ def grids():
 
 
 def regression():
-    print(tips.head())
+    # print(tips.head())
     # sns.lmplot(
     #     x='total_bill',
     #     y='tip',
@@ -162,12 +164,18 @@ def regression():
     #     markers=['^', 'v']
     # ).fig.suptitle('.lmplot ')
 
-    sns.lmplot(
+    f = sns.lmplot(
         x='total_bill',
         y='tip',
         data=tips,
         col='sex'
-    ).fig.suptitle('.lmplot ')
+    )
+    f.fig.suptitle('.lmplot ')
+
+    # create and save the plot data as file
+    pathtofile = str(pathlib.Path(
+        __file__).parent.absolute()) + "/images/"
+    f.savefig(pathtofile + "myfig3.png")
 
 
 if __name__ == '__main__':
