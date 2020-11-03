@@ -6,13 +6,16 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 # if creating the plots in same place
 # they will stick to ech other in picture
 
+# pandas dataFrame (as learning data)
+tips = sns.load_dataset('tips')
+flights = sns.load_dataset('flights')
+iris = sns.load_dataset('iris')
+
+
 def basic():
-    # pandas dataFrame (as learning data)
-    tips = sns.load_dataset('tips')
     print(tips.head())
 
     sns.distplot(
@@ -39,8 +42,6 @@ def basic():
 
 
 def categorical_plots():
-    # pandas dataFrame (as learning data)
-    tips = sns.load_dataset('tips')
     print(tips.head())
 
     # sns.barplot(
@@ -96,9 +97,39 @@ def categorical_plots():
 
 
 def matrix_plot():
-    # pandas dataFrame (as learning data)
-    tips = sns.load_dataset('tips')
     print(tips.head())
+    print(flights.head())
+
+    # get matrix of data
+    tips_corr = tips.corr()
+    fli_p = flights.pivot_table(
+        index='month',
+        columns='year',
+        values='passengers'
+    )
+
+    print(tips_corr)
+    # sns.heatmap(
+    #     tips_corr,
+    #     annot=True,
+    #     cmap='coolwarm'
+    #
+    # ).set_title('.heatmap')
+
+    print(fli_p)
+    # sns.heatmap(
+    #     fli_p
+    # ).set_title('.heatmap')
+
+    sns.clustermap(
+        fli_p,
+        cmap='coolwarm',
+        standard_scale=1
+    ).fig.suptitle('.clustermap ')
+
+
+def grids():
+    print(iris.head())
 
 
 
@@ -106,6 +137,8 @@ def matrix_plot():
 if __name__ == '__main__':
     # basic()
     # categorical_plots()
-    matrix_plot()
+    # matrix_plot()
+    grids()
+
     plt.tight_layout()  # visual
     plt.show()  # print
