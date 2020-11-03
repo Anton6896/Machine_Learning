@@ -129,16 +129,53 @@ def matrix_plot():
 
 
 def grids():
-    print(iris.head())
+    print(tips.head())
+
+    # g = sns.PairGrid(iris)
+    # g.map_diag(sns.displot)
+    # g.map_upper(plt.scatter)
+    # g.map_lower(sns.kdeplot)
+
+    g = sns.FacetGrid(
+        data=tips,
+        col='time',
+        row='smoker'
+    )
+    # g.map(
+    #     sns.distplot,
+    #     'total_bill')
+
+    g.map(
+        sns.scatterplot,
+        'total_bill',
+        'tip',
+    )
 
 
+def regression():
+    print(tips.head())
+    # sns.lmplot(
+    #     x='total_bill',
+    #     y='tip',
+    #     data=tips,
+    #     hue='sex',
+    #     markers=['^', 'v']
+    # ).fig.suptitle('.lmplot ')
+
+    sns.lmplot(
+        x='total_bill',
+        y='tip',
+        data=tips,
+        col='sex'
+    ).fig.suptitle('.lmplot ')
 
 
 if __name__ == '__main__':
     # basic()
     # categorical_plots()
     # matrix_plot()
-    grids()
+    # grids()
+    regression()
 
     plt.tight_layout()  # visual
     plt.show()  # print
