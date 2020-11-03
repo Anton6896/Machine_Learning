@@ -15,7 +15,7 @@ import pandas as pd
 
 def test():
     file_name = str(pathlib.Path(
-        __file__).parent.parent.absolute()) + '/pandas/Salaries.csv'
+        __file__).parent.parent.absolute()) + '/Salaries.csv'
     sal = pd.read_csv(file_name)
 
     print(

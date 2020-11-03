@@ -16,6 +16,10 @@ pip install sqlalchemy
 pip install xlrd
 pip install openpyxl
 pip install matplotlib
+pip install seaborn
+pip install plotly 
+pip install cufflinks
+
 
 jupyter notebook --notebook-dir=D:\
 
