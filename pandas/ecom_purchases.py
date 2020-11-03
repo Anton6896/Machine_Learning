@@ -93,7 +93,7 @@ def my_main():
         check the Exp Date is after or equal 2025 = 25
         """
         d = date.split('/')[1]
-        if int(d) >= 25:
+        if int(d) == 25:
             return True
         return False
 
