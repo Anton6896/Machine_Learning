@@ -16,6 +16,7 @@ pip install sqlalchemy
 pip install xlrd
 pip install openpyxl
 pip install matplotlib
+pip install seaborn
 
 jupyter notebook --notebook-dir=D:\
 
