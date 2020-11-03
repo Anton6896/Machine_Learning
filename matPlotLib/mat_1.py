@@ -1,3 +1,4 @@
+
 import pandas as pd
 import numpy as np
 import pathlib
@@ -126,5 +127,5 @@ if __name__ == '__main__':
     # adv_1()
     adv_2()
 
-    plt.tight_layout()  # visual
+    # plt.tight_layout()  # visual
     plt.show()  # print
