@@ -1,22 +1,11 @@
-<<<<<<< HEAD
-import matplotlib.pyplot as plt
 
-
-def mat_1():
-    """
-    basics 
-    """
-
-    pass
-
-
-if __name__ == "__main__":
-    pass
-=======
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import pathlib
+
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
 
 '''
 https://matplotlib.org/   documentation 
@@ -138,6 +127,5 @@ if __name__ == '__main__':
     # adv_1()
     adv_2()
 
-    plt.tight_layout()  # visual
+    # plt.tight_layout()  # visual
     plt.show()  # print
->>>>>>> 060236acaac91227dde2b6d75a199a1320e6f30d
