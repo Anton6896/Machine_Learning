@@ -3,18 +3,18 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-
-# import os
-# if not os.path.exists("ml/linear_regression/images"):
-#     os.mkdir("ml/linear_regression/images")
+import pathlib
+import os 
 
 
 def main():
-    df = pd.read_csv(
-        '/mnt/d/Documents/Code/Mashine_Learning/course_data/11-Linear-Regression/USA_Housing.csv')
+    # get_data
+    pathtofile = str(os.path.abspath(os.getcwd())) + '/course_data/11-Linear-Regression/USA_Housing.csv'
+    df = pd.read_csv(pathtofile)
     print(df.info())
     sns.displot(df['Price'], kde=True)
 
+    
 
 if __name__ == "__main__":
     main()
