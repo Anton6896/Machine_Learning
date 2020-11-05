@@ -7,18 +7,7 @@ Udemy cource : Python for Data Science and Machine Learning Bootcamp Learn how t
 
 
 # NumPy
-pip install numpy
-pip install pandas
-pip install lxml
-pip install html5lib
-pip install BeautifulSoup4
-pip install sqlalchemy
-pip install xlrd
-pip install openpyxl
-pip install matplotlib
-pip install seaborn
-pip install plotly 
-pip install cufflinks
+# todo repeat the proces with the real data  ml/linear_regression/lr_1.py  ... 41
 
 
 jupyter notebook --notebook-dir=D:\
