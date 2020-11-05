@@ -177,6 +177,8 @@ def regression():
         __file__).parent.absolute()) + "/images/"
     f.savefig(pathtofile + "myfig3.png")
 
+    
+
 
 if __name__ == '__main__':
     # basic()
