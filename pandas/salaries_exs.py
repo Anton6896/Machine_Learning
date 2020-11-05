@@ -132,7 +132,6 @@ def test():
     sal.fillna(int(0))
     corelation = sal[['title_len', 'TotalPayBenefits']].corr(method ='pearson')
     print(
-
         "\nIs there a correlation between length of the Job Title string and Salary?\n" +
         f"\t{corelation}"
     )
