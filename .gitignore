@@ -1,4 +1,6 @@
-env/
+env
+env_win
 .vscode
-.idea/
-course_data/
+.idea
+course_data
+.vs
