@@ -58,6 +58,7 @@ def cre():
     sns_plot.savefig(path_to_plots + "USA_Housing_disploy.png")
     # this is sine fo good choice od data
     # y_test is actual data and  - my_prediction  look the same data so we can see gaues bell
+    # requerments 
 
     print(metrics.mean_absolute_error(y_test, predictions))
     print(metrics.mean_squared_error(y_test, predictions))
