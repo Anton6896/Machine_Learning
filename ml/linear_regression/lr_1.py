@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 
+# create folder at current dir  
 import pathlib
 import os
 
@@ -17,6 +18,8 @@ if not os.path.exists('plots'):
     os.makedirs('plots')
 
 
+
+# function to predict price 
 def cre():
     df = pd.read_csv(
         str(pathlib.Path(__file__).parent.parent.parent.absolute()) +

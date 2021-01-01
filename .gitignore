@@ -1,5 +1,5 @@
 env
-env_win
+win_env
 .vscode
 .idea
 course_data
