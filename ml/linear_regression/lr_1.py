@@ -9,6 +9,7 @@ and what is "Root Mean Squared Error" , how far my prediction from test
 '''
 
 
+from scipy.sparse import data
 import sklearn
 import pandas as pd
 import numpy as np
@@ -115,6 +116,8 @@ class LinearPrediction:
         """
         The company is trying to decide whether to focus their 
         efforts on their mobile app experience or their website
+
+        ** can see that cant run the plot one after another , have an bug on output. must do one by one 
         """
         df = pd.read_csv(
             str(pathlib.Path(__file__).parent.parent.parent.absolute()) +
@@ -175,7 +178,9 @@ class LinearPrediction:
         # prediction
         predictions = lm.predict(X_test)
         plt.scatter(y_test, predictions)
+        plt.title('spend money')
         plt.savefig(path_to_plots + "money_spend_pred.png")
+
 
         sns.displot(y_test-predictions,
                     kde=True).savefig(path_to_plots + "the_difference.png")
