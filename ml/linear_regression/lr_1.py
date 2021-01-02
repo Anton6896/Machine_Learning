@@ -1,13 +1,11 @@
 '''
 predicting the house price from the USA_Housing.csv data source 
 would like to see what is be  ->  'Price' with this data 
+
 ['Avg. Area Income', 'Avg. Area House Age', 'Avg. Area Number of Rooms',
- 'Avg. Area Number of Bedrooms', 'Area Population', 'Address']
+ 'Avg. Area Number of Bedrooms', 'Area Population']
 
-
-
-
-
+and what is "Root Mean Squared Error" , how far my prediction from test 
 '''
 
 
@@ -20,7 +18,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 
-# create folder at current dir
+
+# create folder and path at current dir ====================
 import pathlib
 import os
 
@@ -34,8 +33,10 @@ if not os.path.exists('plots'):
 path_to_plots = str(pathlib.Path(
     __file__).parent.absolute()) + "/plots/"
 
+# ==========================================================
 
-class LinearRegMy:
+
+class LinearPrediction:
 
     # function to predict price
     def cre(self):
@@ -82,6 +83,8 @@ class LinearRegMy:
         # prediction from train data
         predictions = lm.predict(X_test)
 
+        # the actually test data minus prediction
+        # to see how far the prediction from the actual data
         plt.scatter(y_test, predictions)
         plt.savefig(path_to_plots + "USA_Housing_scatter_plot.png")
 
@@ -89,11 +92,14 @@ class LinearRegMy:
         sns_plot.savefig(path_to_plots + "USA_Housing_disploy.png")
 
         print('\nstat data :')
-        print(metrics.mean_absolute_error(y_test, predictions))
-        print(metrics.mean_squared_error(y_test, predictions))
-        print(np.sqrt(metrics.mean_squared_error(y_test, predictions)))
+        print(
+            f'Mean absolute error :: {metrics.mean_absolute_error(y_test, predictions)}')
+        print(
+            f"Mean squared error ::  {metrics.mean_squared_error(y_test, predictions)}")
+        print(
+            f"Root Mean squared error :: {np.sqrt(metrics.mean_squared_error(y_test, predictions))}")
 
-    def my_lin_try(self):
+    def try1(self):
         print('\n Boston data set : ')
         from sklearn.datasets import load_boston
 
@@ -101,17 +107,66 @@ class LinearRegMy:
         # print(boston['DESCR'])
         print(boston.keys())
 
+        print('\nboston df :')
         data = pd.DataFrame(boston['data'], columns=boston['feature_names'])
         print(data.head())
 
+    def try2(self):
+        """
+        The company is trying to decide whether to focus their 
+        efforts on their mobile app experience or their website
+        """
+        df = pd.read_csv(
+            str(pathlib.Path(__file__).parent.parent.parent.absolute()) +
+            "/course_data/11-Linear-Regression/Ecommerce_Customers"
+        )
+        # print(df.head())
+        print(f'data frame info :\n{df.info()}')
+        # print(f'\ncolumns : {df.columns}')
+
+        X = df[
+            [
+                'Time on App',
+                'Time on Website',
+                'Length of Membership'
+            ]
+        ]
+
+        y = df['Avg. Session Length']
+
+        # create plot and save plot
+        sns.jointplot(
+            data=df,
+            x='Time on Website',
+            y='Yearly Amount Spent',
+            kind="reg"
+        ).savefig(path_to_plots + "time_web_vs_spend.png")
+
+        sns.jointplot(
+            data=df,
+            x='Time on App',
+            y='Yearly Amount Spent',
+            kind="reg"
+        ).savefig(path_to_plots + "time_app_vs_spend.png")
+
+        sns.jointplot(
+            data=df,
+            x='Time on App',
+            y='Length of Membership',
+            kind="hex"
+        ).savefig(path_to_plots + "time_app_vs_membership.png")
+
+        data_pairplot = sns.pairplot(
+            data=df,
+            size=2.5
+        ).savefig(path_to_plots + "data_pairplot.png")
 
         
 
 
 if __name__ == "__main__":
-    l = LinearRegMy()
-
+    l = LinearPrediction()
     # l.cre()
-    l.my_lin_try()
+    l.try2()
 
     # plt.show()
