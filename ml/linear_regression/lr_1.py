@@ -128,40 +128,65 @@ class LinearPrediction:
             [
                 'Time on App',
                 'Time on Website',
-                'Length of Membership'
+                'Length of Membership',
+                'Avg. Session Length'
             ]
         ]
 
-        y = df['Avg. Session Length']
+        y = df['Yearly Amount Spent']
 
-        # create plot and save plot
-        sns.jointplot(
-            data=df,
-            x='Time on Website',
-            y='Yearly Amount Spent',
-            kind="reg"
-        ).savefig(path_to_plots + "time_web_vs_spend.png")
+        # sns.pairplot(
+        #     data=df,
+        #     height=2.5
+        # ).savefig(path_to_plots + "data_pairplot.png")
 
-        sns.jointplot(
-            data=df,
-            x='Time on App',
-            y='Yearly Amount Spent',
-            kind="reg"
-        ).savefig(path_to_plots + "time_app_vs_spend.png")
+        # sns.jointplot(
+        #     data=df,
+        #     x='Time on Website',
+        #     y='Yearly Amount Spent',
+        #     kind="reg"
+        # ).savefig(path_to_plots + "time_web_vs_spend.png")
 
-        sns.jointplot(
-            data=df,
-            x='Time on App',
-            y='Length of Membership',
-            kind="hex"
-        ).savefig(path_to_plots + "time_app_vs_membership.png")
+        # sns.jointplot(
+        #     data=df,
+        #     x='Time on App',
+        #     y='Yearly Amount Spent',
+        #     kind="reg"
+        # ).savefig(path_to_plots + "time_app_vs_spend.png")
 
-        data_pairplot = sns.pairplot(
-            data=df,
-            size=2.5
-        ).savefig(path_to_plots + "data_pairplot.png")
+        # sns.jointplot(
+        #     data=df,
+        #     x='Time on App',
+        #     y='Length of Membership',
+        #     kind="hex"
+        # ).savefig(path_to_plots + "time_app_vs_membership.png")
 
-        
+        # train dataset
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.3, random_state=101)
+
+        lm = LinearRegression()
+        lm.fit(X_train, y_train)
+
+        cdf = pd.DataFrame(lm.coef_, X.columns, columns=['Coefficient'])
+        print(f'\nthe coefficient of data : \n{cdf}')
+        print(f"interception : {lm.intercept_}")
+
+        # prediction
+        predictions = lm.predict(X_test)
+        plt.scatter(y_test, predictions)
+        plt.savefig(path_to_plots + "money_spend_pred.png")
+
+        sns.displot(y_test-predictions,
+                    kde=True).savefig(path_to_plots + "the_difference.png")
+
+        print('\nstat data :')
+        print(
+            f'Mean absolute error :: {metrics.mean_absolute_error(y_test, predictions)}')
+        print(
+            f"Mean squared error ::  {metrics.mean_squared_error(y_test, predictions)}")
+        print(
+            f"Root Mean squared error :: {np.sqrt(metrics.mean_squared_error(y_test, predictions))}")
 
 
 if __name__ == "__main__":
