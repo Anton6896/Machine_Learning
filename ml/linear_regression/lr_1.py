@@ -181,9 +181,11 @@ class LinearPrediction:
         plt.title('spend money')
         plt.savefig(path_to_plots + "money_spend_pred.png")
 
-
-        sns.displot(y_test-predictions,
-                    kde=True).savefig(path_to_plots + "the_difference.png")
+        # can see that the great difference , that mean that the data is pretty correct
+        sns.displot(
+            y_test-predictions,
+            kde=True
+        ).savefig(path_to_plots + "the_difference.png")
 
         print('\nstat data :')
         print(
@@ -192,6 +194,9 @@ class LinearPrediction:
             f"Mean squared error ::  {metrics.mean_squared_error(y_test, predictions)}")
         print(
             f"Root Mean squared error :: {np.sqrt(metrics.mean_squared_error(y_test, predictions))}")
+
+        print(
+            f"residual metrics score :: {metrics.explained_variance_score(y_test, predictions)}")
 
 
 if __name__ == "__main__":
