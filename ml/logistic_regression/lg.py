@@ -25,12 +25,35 @@ path_to_plots = str(pathlib.Path(
 
 # ==========================================================
 """
-solving classification problems 
+solving classification problems (yes / no)
 """
 
- 
 
+def titanic_ds():
+
+    train_ds = pd.read_csv(
+        str(pathlib.Path(__file__).parent.parent.parent.absolute()) +
+        "/course_data/13-Logistic-Regression/titanic_train.csv"
+    )
+
+    main_ds = pd.read_csv(
+        str(pathlib.Path(__file__).parent.parent.parent.absolute()) +
+        "/course_data/13-Logistic-Regression/titanic_test.csv"
+    )
+
+    print(train_ds.head())
+
+    sns.heatmap(
+        train_ds.isnull(),
+        yticklabels=False,
+        cbar=False,
+        cmap="viridis"
+    )
+
+    
 
 
 if __name__ == "__main__":
-    pass
+
+    titanic_ds()
+    plt.show()
