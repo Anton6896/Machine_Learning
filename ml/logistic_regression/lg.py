@@ -66,7 +66,7 @@ def titanic_ds():
     # cleaning data ===================================
     """
     original data set have missing data at age and caabin number
-    -> fill age with mean value 
+    -> fill age with mean value for None values in ds 
     ->
     """
     def impute_age(col):
@@ -74,28 +74,30 @@ def titanic_ds():
         Age = col[0]
         Pclass = col[1]
 
-        mean_1 = 0
-
-        print(mean_1)
+        mean_1 = int(train_ds[train_ds['Pclass'] == 1]['Age'].mean())
+        mean_2 = int(train_ds[train_ds['Pclass'] == 2]['Age'].mean())
+        mean_3 = int(train_ds[train_ds['Pclass'] == 3]['Age'].mean())
 
         if pd.isnull(Age):
             if Pclass == 1:
-                return 37
+                return mean_1
             elif Pclass == 2:
-                return 29
+                return mean_2
             else:
-                return 25
+                return mean_3
         else:
             return Age
 
     train_ds['Age'] = train_ds[['Age', 'Pclass']].apply(impute_age, axis=1)
 
-    # sns_plot = sns.heatmap(
-    #     train_ds.isnull(),
-    #     yticklabels=False,
-    #     cbar=False,
-    #     cmap="viridis"
-    # )
+    sns_plot = sns.heatmap(
+        train_ds.isnull(),
+        yticklabels=False,
+        cbar=False,
+        cmap="viridis"
+    )
+
+
 
 
 if __name__ == "__main__":
