@@ -31,7 +31,6 @@ solving classification problems (yes / no)
 
 def titanic_ds():
 
-
     # exploring data ===================================
     train_ds = pd.read_csv(
         str(pathlib.Path(__file__).parent.parent.parent.absolute()) +
@@ -64,13 +63,40 @@ def titanic_ds():
 
     # sns.displot(train_ds['Fare'], bins=40, kde=True)
 
-
     # cleaning data ===================================
     """
     original data set have missing data at age and caabin number
     -> fill age with mean value 
     ->
     """
+    def impute_age(col):
+
+        Age = col[0]
+        Pclass = col[1]
+
+        mean_1 = 0
+
+        print(mean_1)
+
+        if pd.isnull(Age):
+            if Pclass == 1:
+                return 37
+            elif Pclass == 2:
+                return 29
+            else:
+                return 25
+        else:
+            return Age
+
+    train_ds['Age'] = train_ds[['Age', 'Pclass']].apply(impute_age, axis=1)
+
+    # sns_plot = sns.heatmap(
+    #     train_ds.isnull(),
+    #     yticklabels=False,
+    #     cbar=False,
+    #     cmap="viridis"
+    # )
+
 
 if __name__ == "__main__":
 
