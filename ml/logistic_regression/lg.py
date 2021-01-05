@@ -31,6 +31,8 @@ solving classification problems (yes / no)
 
 def titanic_ds():
 
+
+    # exploring data ===================================
     train_ds = pd.read_csv(
         str(pathlib.Path(__file__).parent.parent.parent.absolute()) +
         "/course_data/13-Logistic-Regression/titanic_train.csv"
@@ -41,17 +43,34 @@ def titanic_ds():
         "/course_data/13-Logistic-Regression/titanic_test.csv"
     )
 
-    print(train_ds.head())
+    print(train_ds.info())
 
-    sns.heatmap(
-        train_ds.isnull(),
-        yticklabels=False,
-        cbar=False,
-        cmap="viridis"
-    )
+    # sns_plot = sns.heatmap(
+    #     train_ds.isnull(),
+    #     yticklabels=False,
+    #     cbar=False,
+    #     cmap="viridis"
+    # )
+    # fig = sns_plot.get_figure()
+    # fig.savefig(path_to_plots + "heatmap.png")
 
-    
+    # sns.countplot(
+    #     x='Survived',
+    #     data=train_ds,
+    #     hue='Pclass'
+    # )
 
+    # sns.displot(train_ds['Age'].dropna(), bins=30, kde=True)
+
+    # sns.displot(train_ds['Fare'], bins=40, kde=True)
+
+
+    # cleaning data ===================================
+    """
+    original data set have missing data at age and caabin number
+    -> fill age with mean value 
+    ->
+    """
 
 if __name__ == "__main__":
 
