@@ -63,11 +63,11 @@ def titanic_ds():
 
     # sns.displot(train_ds['Fare'], bins=40, kde=True)
 
-    # cleaning data ===================================
+    # cleaning data (prepare for calculations) ===================================
     """
     original data set have missing data at age and caabin number
     -> fill age with mean value for None values in ds 
-    ->
+    -> to match data lose in Cabin column -> drop data 
     """
     def impute_age(col):
 
@@ -90,16 +90,30 @@ def titanic_ds():
 
     train_ds['Age'] = train_ds[['Age', 'Pclass']].apply(impute_age, axis=1)
 
-    sns_plot = sns.heatmap(
-        train_ds.isnull(),
-        yticklabels=False,
-        cbar=False,
-        cmap="viridis"
-    )
+    train_ds.drop('Cabin', axis=1, inplace=True)
+    # any na value will be dropt (one left after all)
+    train_ds.dropna(inplace=True)
+
+    # sns_plot = sns.heatmap(
+    #     train_ds.isnull(),
+    #     yticklabels=False,
+    #     cbar=False,
+    #     cmap="viridis"
+    # )
+
+    # crete dammy variable (male=0, female=1)
+    sex = pd.get_dummies(train_ds['Sex'], drop_first=True)
+    embarked = pd.get_dummies(train_ds['Embarked'], drop_first=True)
+
+    train_ds = pd.concat([train_ds, sex, embarked])
+    train_ds.drop([
+        'Sex', 'Embarked', 'Name', 'Ticket'
+    ])
+
+    print(train_ds.info())
 
 
-
-
+    # cleaning data ===================================
 if __name__ == "__main__":
 
     titanic_ds()
