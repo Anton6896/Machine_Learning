@@ -1,12 +1,10 @@
-from scipy.sparse import data
-import sklearn
 import pandas as pd
-import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn import metrics
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, confusion_matrix
 
 
 # create folder and path at current dir ====================
@@ -32,12 +30,14 @@ solving classification problems (yes / no)
 
 def titanic_ds():
 
-    # exploring data ===================================
-
+    # * exploring data =================================================
     train_ds = pd.read_csv(
         str(pathlib.Path(__file__).parent.parent.parent.absolute()) +
         "/course_data/13-Logistic-Regression/titanic_train.csv"
     )
+
+    print(
+        f"\nbefore addin : -------------------------------------------------------- \n{train_ds.head()} ")
 
     main_ds = pd.read_csv(
         str(pathlib.Path(__file__).parent.parent.parent.absolute()) +
@@ -47,7 +47,7 @@ def titanic_ds():
     # print(train_ds.info())
 
     # sns_plot = sns.heatmap(
-    #     train_ds.isnull(),  # search visual for NaN 
+    #     train_ds.isnull(),  # search visual for NaN
     #     yticklabels=False,
     #     cbar=False,
     #     cmap="viridis"
@@ -65,7 +65,7 @@ def titanic_ds():
 
     # sns.displot(train_ds['Fare'], bins=40, kde=True)
 
-    # cleaning data (prepare for calculations) ===================================
+    # * cleaning data (prepare for calculations) ===================================
     """
     original data set have missing data at age and caabin number
     -> fill age with mean value for None values in ds 
@@ -103,13 +103,14 @@ def titanic_ds():
 
     train_ds.drop(
         # delete unused columns
-        ['Sex', 'Embarked', 'Name', 'Ticket', 'Cabin', 'PassengerId'],
+        ['Sex', 'Embarked', 'Name', 'Ticket', 'Cabin', 'PassengerId', 'Pclass'],
         axis=1,
         inplace=True
     )
     train_ds.dropna(inplace=True)
 
     # prepare data for use ( all data is numerical and ready to use in algo )
+    print("\nafter data manage : --------------------------------------------------------  \n   ")
     print(train_ds.info())
     print(train_ds.head())
 
@@ -119,6 +120,27 @@ def titanic_ds():
     #     cbar=False,
     #     cmap="viridis"
     # )
+
+    # * building logic regression model ===================================
+
+    print('\ntotal data ---------------------------------------------------------- \n')
+
+    # training data set
+    X_train, X_test, y_train, y_test = train_test_split(
+        train_ds.drop('Survived', axis=1),
+        train_ds['Survived'],
+        test_size=0.30,
+        random_state=101
+    )
+
+    lg_model = LogisticRegression(max_iter=1000)
+    lg_model.fit(X_train, y_train)
+    predict_my = lg_model.predict(X_test)
+
+    # evaluating data  --> https://en.wikipedia.org/wiki/F-score
+    print(
+        f"classification report : \n{classification_report(y_test, predict_my)}")
+    print(f"confusion matrix : \n{confusion_matrix(y_test, predict_my)}")
 
 
 if __name__ == "__main__":
