@@ -181,11 +181,11 @@ def regression():
 
 
 if __name__ == '__main__':
-    # basic()
+    basic()
     # categorical_plots()
     # matrix_plot()
     # grids()
-    regression()
+    # regression()
 
     plt.tight_layout()  # visual
     plt.show()  # print

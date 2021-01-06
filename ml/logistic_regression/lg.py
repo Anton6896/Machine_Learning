@@ -31,7 +31,7 @@ solving classification problems (yes / no)
 
 def titanic_ds():
 
-    train_ds = pd.read_csv(
+    ds_train = pd.read_csv(
         str(pathlib.Path(__file__).parent.parent.parent.absolute()) +
         "/course_data/13-Logistic-Regression/titanic_train.csv"
     )
@@ -41,16 +41,22 @@ def titanic_ds():
         "/course_data/13-Logistic-Regression/titanic_test.csv"
     )
 
-    print(train_ds.head())
+    print(ds_train.head())
 
     sns.heatmap(
-        train_ds.isnull(),
+        ds_train.isnull(),
         yticklabels=False,
         cbar=False,
         cmap="viridis"
     )
 
-    
+    # sns.pairplot(
+    #     ds_train,
+    #     hue='Sex',
+    #     palette='coolwarm'
+    # ).fig.suptitle('.pairplot')
+
+
 
 
 if __name__ == "__main__":
