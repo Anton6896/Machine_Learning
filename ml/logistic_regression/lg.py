@@ -33,6 +33,7 @@ solving classification problems (yes / no)
 def titanic_ds():
 
     # exploring data ===================================
+
     train_ds = pd.read_csv(
         str(pathlib.Path(__file__).parent.parent.parent.absolute()) +
         "/course_data/13-Logistic-Regression/titanic_train.csv"
@@ -46,7 +47,7 @@ def titanic_ds():
     # print(train_ds.info())
 
     # sns_plot = sns.heatmap(
-    #     train_ds.isnull(),
+    #     train_ds.isnull(),  # search visual for NaN 
     #     yticklabels=False,
     #     cbar=False,
     #     cmap="viridis"
@@ -76,7 +77,7 @@ def titanic_ds():
     mean_3 = int(train_ds[train_ds['Pclass'] == 3]['Age'].mean())
 
     def impute_age(col):
-
+        # replace all age that NaN by Pclass with mean of Age in it .
         Age = col[0]
         Pclass = col[1]
 
@@ -92,11 +93,25 @@ def titanic_ds():
 
     train_ds['Age'] = train_ds[['Age', 'Pclass']].apply(impute_age, axis=1)
 
-    train_ds.drop('Cabin', axis=1, inplace=True)
-    # # any NaN value will be dropt (one left after all)
+    # # crete dummies variable (male=0, female=1)  etc for the calculation use
+    sex = pd.get_dummies(train_ds['Sex'], drop_first=True)
+    embark = pd.get_dummies(train_ds['Embarked'], drop_first=True)
+    p_class = pd.get_dummies(train_ds['Pclass'], drop_first=True, prefix='pcl')
+
+    # axis=1 is ==> add by columns
+    train_ds = pd.concat([train_ds, sex, embark, p_class], axis=1)
+
+    train_ds.drop(
+        # delete unused columns
+        ['Sex', 'Embarked', 'Name', 'Ticket', 'Cabin', 'PassengerId'],
+        axis=1,
+        inplace=True
+    )
     train_ds.dropna(inplace=True)
 
-    train_ds = train_ds
+    # prepare data for use ( all data is numerical and ready to use in algo )
+    print(train_ds.info())
+    print(train_ds.head())
 
     # sns_plot = sns.heatmap(
     #     train_ds.isnull(),  # see if have an null value ?
@@ -105,33 +120,7 @@ def titanic_ds():
     #     cmap="viridis"
     # )
 
-    # # crete dammy variable (male=0, female=1)
-    sex = pd.get_dummies(train_ds['Sex'], drop_first=True)
-    embark = pd.get_dummies(train_ds['Embarked'], drop_first=True)
 
-    
-
-    train_ds = pd.concat([train_ds, sex, embark], axis=1)
-
-    train_ds.drop(
-        ['Sex', 'Embarked', 'Name', 'Ticket'],
-        axis=1,
-        inplace=True
-    )
-
-    
-    # prepare data for use ( all data is numerical and ready to use in algo )
-    print(train_ds.info())
-
-    sns_plot = sns.heatmap(
-        train_ds.isnull(),  # see if have an null value ?
-        yticklabels=False,
-        cbar=False,
-        cmap="viridis"
-    )
-
-
-    # cleaning data ===================================
 if __name__ == "__main__":
 
     titanic_ds()
