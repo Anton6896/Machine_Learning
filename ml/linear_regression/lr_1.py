@@ -201,7 +201,7 @@ class LinearPrediction:
 
 if __name__ == "__main__":
     l = LinearPrediction()
-    # l.cre()
-    l.try2()
+    l.cre()
+    # l.try2()
 
     # plt.show()

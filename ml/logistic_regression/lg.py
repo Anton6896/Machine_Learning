@@ -24,6 +24,7 @@ path_to_plots = str(pathlib.Path(
     __file__).parent.absolute()) + "/plots/"
 
 # ==========================================================
+
 """
 solving classification problems (yes / no)
 """
@@ -42,7 +43,7 @@ def titanic_ds():
         "/course_data/13-Logistic-Regression/titanic_test.csv"
     )
 
-    print(train_ds.info())
+    # print(train_ds.info())
 
     # sns_plot = sns.heatmap(
     #     train_ds.isnull(),
@@ -69,21 +70,22 @@ def titanic_ds():
     -> fill age with mean value for None values in ds 
     -> to match data lose in Cabin column -> drop data 
     """
+
+    mean_1 = int(train_ds[train_ds['Pclass'] == 1]['Age'].mean())
+    mean_2 = int(train_ds[train_ds['Pclass'] == 2]['Age'].mean())
+    mean_3 = int(train_ds[train_ds['Pclass'] == 3]['Age'].mean())
+
     def impute_age(col):
 
         Age = col[0]
         Pclass = col[1]
-
-        mean_1 = int(train_ds[train_ds['Pclass'] == 1]['Age'].mean())
-        mean_2 = int(train_ds[train_ds['Pclass'] == 2]['Age'].mean())
-        mean_3 = int(train_ds[train_ds['Pclass'] == 3]['Age'].mean())
 
         if pd.isnull(Age):
             if Pclass == 1:
                 return mean_1
             elif Pclass == 2:
                 return mean_2
-            else:
+            elif Pclass == 3:
                 return mean_3
         else:
             return Age
@@ -91,26 +93,42 @@ def titanic_ds():
     train_ds['Age'] = train_ds[['Age', 'Pclass']].apply(impute_age, axis=1)
 
     train_ds.drop('Cabin', axis=1, inplace=True)
-    # any na value will be dropt (one left after all)
+    # # any NaN value will be dropt (one left after all)
     train_ds.dropna(inplace=True)
 
+    train_ds = train_ds
+
     # sns_plot = sns.heatmap(
-    #     train_ds.isnull(),
+    #     train_ds.isnull(),  # see if have an null value ?
     #     yticklabels=False,
     #     cbar=False,
     #     cmap="viridis"
     # )
 
-    # crete dammy variable (male=0, female=1)
+    # # crete dammy variable (male=0, female=1)
     sex = pd.get_dummies(train_ds['Sex'], drop_first=True)
-    embarked = pd.get_dummies(train_ds['Embarked'], drop_first=True)
+    embark = pd.get_dummies(train_ds['Embarked'], drop_first=True)
 
-    train_ds = pd.concat([train_ds, sex, embarked])
-    train_ds.drop([
-        'Sex', 'Embarked', 'Name', 'Ticket'
-    ], axis=1, inplace=True)
+    
 
+    train_ds = pd.concat([train_ds, sex, embark], axis=1)
+
+    train_ds.drop(
+        ['Sex', 'Embarked', 'Name', 'Ticket'],
+        axis=1,
+        inplace=True
+    )
+
+    
+    # prepare data for use ( all data is numerical and ready to use in algo )
     print(train_ds.info())
+
+    sns_plot = sns.heatmap(
+        train_ds.isnull(),  # see if have an null value ?
+        yticklabels=False,
+        cbar=False,
+        cmap="viridis"
+    )
 
 
     # cleaning data ===================================
